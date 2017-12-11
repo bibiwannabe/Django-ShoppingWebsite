@@ -19,4 +19,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^user/',include('shopping_user.urls')),
+    url(r'^tinymce/',include('tinymce.urls')),
+    url('^$',include('shopping_goods.urls')),
 ]
