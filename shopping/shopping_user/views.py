@@ -58,17 +58,42 @@ def login_handle(request):
             if remember!=0:
                 red.set_cookie('username',username)
             else:
-                red.set_cookie('username','',max_age=-1)
-            request.session['user_id']=users[0].id
-            request.session['user_name']=username
+                red.set_cookie('username','',max_age=-1)#max_age：过期时间
+            request.session['user_id'] = users[0].id
+            request.session['user_name'] = username
             return red
         else:
-            context = {'title':'用户登录','error_name': 0,'error_pwd': 1,'username': username}
+            context = {'title':'用户登录','error_name': 0,'error_pwd': 1,'username': username,'userpassword':userpassword}
             return render(request,'shopping_user/login.html',context)
     else:
-        context = {'title':'用户登录','error_name': 1,'error_pwd': 0,'username': username}
+        context = {'title':'用户登录','error_name': 1,'error_pwd': 0,'username': username,'userpassword':userpassword}
         return render(request,'shopping_user/login.html',context)
 
-
+#request.session['user_name'] = username
 def info(request):
-    return render(request,'shopping_user/user_center_info.html')
+    user_email = UserInfo.objects.get(id=request.session['user_id']).useremail
+    context = {'title':'用户中心',
+               'user_email':user_email,
+               'user_name':request.session['user_name']}
+    return render(request,'shopping_user/user_center_info.html',context)
+
+
+def order(request):
+    user = UserInfo.objects.get(id=request.session['user_id'])
+    context = {'title':'用户中心',
+               'user':user}
+    return render(request,'shopping_user/user_center_order.html',context)
+
+
+def site(request):
+    user = UserInfo.objects.get(id=request.session['user_id'])
+    if request.method == "POST":
+        user.userreseive = request.POST.get('name')
+        user.useradd = request.POST.get('add')
+        user.useryoubian = request.POST.get('youbian')
+        user.userphone = request.POST.get('phone_number')
+        user.save()
+
+    context ={'title':'用户中心',
+             'user':user }
+    return render(request,'shopping_user/user_center_site.html',context)
