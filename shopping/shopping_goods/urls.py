@@ -2,7 +2,8 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns=[
-    url('^$',views.index),
-    url('^list(\d+)_(\d+)_(\d+)_/$',views.list),
-    url('^(\d+)/$',views.detail),
+    url(r'^$',views.index),
+    url(r'^list(\d+)_(\d+)_(\d+)/$',views.list),
+    url(r'^(\d+)/$',views.detail),
+    url(r'^cart/$',views.cart),
 ]
