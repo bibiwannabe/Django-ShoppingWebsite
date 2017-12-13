@@ -1,3 +1,4 @@
+# coding='utf-8'
 from django.shortcuts import render
 from . import models
 from .models import TypeInfo,GoodsInfo
@@ -50,6 +51,7 @@ def list(request,tid,pindex,sort):
         'news': news,
         'list':1
     }
+
     return render(request,'shopping_goods/list.html',context)
 
 def detail(request,gid):
@@ -63,11 +65,26 @@ def detail(request,gid):
         'gid':gid,
         'list':1
     }
+    #记录最近浏览
+    goods_ids=request.COOKIES.get('goods_ids','')
+    goods_id ='%d'%good.id#变成字符串
+    if goods_ids!='':
+        goods_ids1=goods_ids.split(',')
+        if goods_ids1.count(goods_id)>=1:
+            goods_ids1.remove(goods_id)
+        goods_ids1.insert(0,goods_id)
+        if len(goods_ids1)>=6:
+            del goods_ids1[5]
+        goods_ids=','.join(goods_ids1)
+    else:
+        goods_ids=goods_id
+    request.set_cookie('goods_ids',goods_ids)
+
     return render(request, 'shopping_goods/detail.html',context)
 
 def cart(request):
     context = {
-        'cart':1
+        'guest_cart':1
     }
-    return render(request,'shopping_goods/cart.html',context)
+    return render(request,'user_cart/cart.html',context)
 # Create your views here.

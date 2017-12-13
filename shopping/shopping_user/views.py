@@ -1,11 +1,11 @@
-# coding=utf-8
+# coding='utf-8'
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect
-
 from . import user_decorator
 from .models import *
 from hashlib import sha1
 from . import models
+
 
 
 def register(request):
@@ -102,5 +102,6 @@ def site(request):
         user.save()
 
     context ={'title':'用户中心',
-             'user':user }
+             'user':user,
+              }
     return render(request,'shopping_user/user_center_site.html',context)
