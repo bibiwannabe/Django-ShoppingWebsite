@@ -22,7 +22,8 @@ def index(request):
              'type2': type2, 'type02': type02,
              'type3': type3, 'type03': type03,
              'type4': type4, 'type04': type04,
-             'type5': type5, 'type05': type05}
+             'type5': type5, 'type05': type05,
+             }
 
     return render(request,'shopping_goods/index.html',context)
 
@@ -46,7 +47,8 @@ def list(request,tid,pindex,sort):
         'pahinator': paginator,
         'typeninfo': typeinfo,
         'sort': sort,
-        'news': news
+        'news': news,
+        'list':1
     }
     return render(request,'shopping_goods/list.html',context)
 
@@ -58,7 +60,8 @@ def detail(request,gid):
     context ={
         'good':good,
         'news':news,
-        'gid':gid
+        'gid':gid,
+        'list':1
     }
     return render(request, 'shopping_goods/detail.html',context)
 

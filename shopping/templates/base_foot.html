@@ -9,10 +9,11 @@
     {%block head%}{%endblock head%}
 </head>
 <body>
-
+{% block header %}
+{% endblock header %}
 
 {% block body%}{%endblock body%}
-
+{%block foot%}
 	<div class="footer no-mp">
 		<div class="foot_link">
 			<a href="https://bibiwannabe.cn">关于我们</a>
@@ -29,3 +30,4 @@
 
 </body>
 </html>
+{%endblock foot%}
