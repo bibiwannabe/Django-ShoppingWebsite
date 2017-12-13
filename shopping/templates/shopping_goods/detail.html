@@ -1,6 +1,73 @@
 {% extends 'shopping_goods/base.html'%}
-{% block headr %}
-{% endblock headr %}
+{% block head %}
+<script>
+function add(){
+ 	//获取数量
+   count = $(this).prev().find('input').val();
+   num = parseInt($('.num_show').val());
+   del=confirm(count);
+   if(num < 99){
+     $('.num_show').val(count+1);
+   }
+   $('.num_show').blur();
+ }
+
+ function minus(){
+   num = parseInt($('.num_show').val());
+   if(num > 1){
+     $('.num_show').val(num-1);
+   }
+   $('.num_show').blur();
+ }
+
+
+
+ $(function(){
+   $('.num_show').blur(function(){
+     if($(this).val() > 99){
+       $(this).val(99);
+     }
+     num = parseInt($('.num_show').val());
+     price = parseFloat($('#gprice').text());
+     total = num*price
+     $('.num_show').val(num)
+     $('#gtotal').text(total.toFixed(2)+'元');
+   });
+
+   $('#add_cart').click(function(){
+     counts = $('.num_show').val();
+     foodid = {{good.id}};
+     url = '/cart/addcart'+foodid+'&'+counts+'/';
+     $.get(url,function(data){
+       $('#show_count').text(data.count);
+     });
+   });
+
+
+   /* 新增*/
+   $('.add').click(function(){
+     //获取数量
+   count = $(this).prev().find('input').val();
+   num = parseInt($('.num_show').val());
+   del=confirm('确定要删除吗？');
+   if(num < 99){
+     $('.num_show').val(count+1);
+   }
+   $('.num_show').blur();
+   });
+
+   /* 减少*/
+   $('.minus').click(function(){
+     num = parseInt($('.num_show').val());
+   if(num > 1){
+     $('.num_show').val(num-1);
+   }
+   $('.num_show').blur();
+   });
+
+ })
+</script>
+{% endblock head %}
 
 {% block detail %}
 	<div class="goods_detail_con clearfix">

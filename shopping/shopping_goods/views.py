@@ -23,7 +23,7 @@ def index(request):
              'type3': type3, 'type03': type03,
              'type4': type4, 'type04': type04,
              'type5': type5, 'type05': type05,
-             }
+             'page_name':1}
 
     return render(request,'shopping_goods/index.html',context)
 
@@ -66,5 +66,8 @@ def detail(request,gid):
     return render(request, 'shopping_goods/detail.html',context)
 
 def cart(request):
-    return render(request,'shopping_goods/cart.html')
+    context = {
+        'cart':1
+    }
+    return render(request,'shopping_goods/cart.html',context)
 # Create your views here.
