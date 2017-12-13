@@ -6,13 +6,13 @@
         <div class="fr">
             {% if request.session.user_name|default:'' != '' %}
              <div class="user_link fl">
-                <a href="/user/info">欢迎您：{{request.session.user_name}}</a>
+                <a href="/user/info/">欢迎您：{{request.session.user_name}}</a>
                 <span>|</span>
                  <a href="/user/logout/">退出</a>
                 <span>|</span>
-                <a href="/user/info">用户中心</a>
+                <a href="/user/info/">用户中心</a>
                 <span>|</span>
-                <a href="cart.html">我的购物车</a>
+                <a href="/user/cart/">我的购物车</a>
                 <span>|</span>
                 <a href="user_center_order.html">我的订单</a>
             </div>
@@ -20,7 +20,7 @@
             <div class="login_btn fl">
                 <a href="/user/login/">登录</a>
                 <span>|</span>
-                <a href="/user/register">注册</a>
+                <a href="/user/registe/">注册</a>
             </div>
             {% endif %}
 
