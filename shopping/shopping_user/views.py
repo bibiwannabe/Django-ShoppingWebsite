@@ -55,7 +55,7 @@ def login_handle(request):
         s1.update(str(userpassword).encode('utf-8'))
         if s1.hexdigest()==users[0].userpassword:
             url = request.COOKIES.get('url','/')#从cookie中取出url完整路径参照user_decorator
-            red = HttpResponseRedirect('url')
+            red = HttpResponseRedirect(url)
             #记住用户名
             if remember!=0:
                 red.set_cookie('username',username)

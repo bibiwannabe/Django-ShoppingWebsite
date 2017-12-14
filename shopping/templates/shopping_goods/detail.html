@@ -37,7 +37,7 @@ function add(){
    $('#add_cart').click(function(){
      counts = $('.num_show').val();
      foodid = {{good.id}};
-     url = '/cart/addcart'+foodid+'&'+counts+'/';
+     url = '/cart/add'+foodid+'_'+counts+'/';
      $.get(url,function(data){
        $('#show_count').text(data.count);
      });
@@ -49,7 +49,6 @@ function add(){
      //获取数量
    count = $(this).prev().find('input').val();
    num = parseInt($('.num_show').val());
-   del=confirm('确定要删除吗？');
    if(num < 99){
      $('.num_show').val(count+1);
    }
@@ -81,17 +80,21 @@ function add(){
 				<span class="show_unit">单  位：{{good.gunit}}</span>
 			</div>
 			<div class="goods_num clearfix">
-				<div class="num_name fl">数 量：</div>
+				<div class="num_name fl" >数 量：</div>
 				<div class="num_add fl">
-					<input type="text" class="num_show fl" value="1">
+					<input type="text" class="num_show fl" value="1" id="num_show">
 					<a href="javascript:;" class="add fr">+</a>
-					<a href="javascript:;" class="minus fr">-</a>	
-				</div> 
+					<a href="javascript:;" class="minus fr">-</a>
+				</div>
 			</div>
-			<div class="total">总价：<em>16.80元</em></div>
+			<div class="total">总价：<em id="gtotal">{{good.gprice}}</em></div>
 			<div class="operate_btn">
 				<a href="javascript:;" class="buy_btn">立即购买</a>
-				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>				
+				{% if request.session.user_name|default:'' != '' %}
+				<a href="/cart/add{{good.id}}_1/" class="add_cart" id="add_cart">加入购物车</a>
+				{% else %}
+				<a href="/user/login/" class="add_cart" id="add_cart">加入购物车</a>
+				{% endif %}
 			</div>
 		</div>
 	</div>

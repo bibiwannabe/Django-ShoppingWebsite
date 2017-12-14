@@ -1,5 +1,17 @@
 {% extends 'shopping_goods/base.html'%}
 {% block headr %}
+<script>
+ $(function(){
+   $('.add_goods').click(function(){
+     counts = 1;
+     foodid = $(this)[0].dataset.id;
+     url = '/cart/addcart'+foodid+'&'+counts+'/';
+     $.get(url,function(data){
+       $('#show_count').text(data.count);
+     });
+   });
+ })
+</script>
 {% endblock headr %}
 {% block list%}
 	<div class="r_wrap fr clearfix">
@@ -17,7 +29,7 @@
 					<div class="operate">
 						<span class="prize">￥{{good.gprice}}</span>
 						<span class="unit">/{{good.gunit}}</span>
-						<a href="/cart_order/detail/" class="add_goods" title="加入购物车"></a>
+						<a href="/cart/add{{good.id}}_1/" class="add_goods" title="加入购物车"></a>
 					</div>
 				</li>
 				{%endfor%}
@@ -25,7 +37,10 @@
 			</ul>
 
 			<div class="pagenation">
-				<a href="#"><上一页</a>
+				{% if goodList.has_previous %}
+				<a href="/list{{typeid}}_{{goodList.previous_page_number}}_{{sort}}"><上一页</a>
+				{% endif %}
+
 				<a href="#" class="active">1</a>
 				<a href="#">2</a>
 				<a href="#">3</a>

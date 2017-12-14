@@ -65,6 +65,7 @@ def detail(request,gid):
         'gid':gid,
         'list':1
     }
+    response = render(request, 'shopping_goods/detail.html',context)
     #记录最近浏览
     goods_ids=request.COOKIES.get('goods_ids','')
     goods_id ='%d'%good.id#变成字符串
@@ -78,13 +79,7 @@ def detail(request,gid):
         goods_ids=','.join(goods_ids1)
     else:
         goods_ids=goods_id
-    request.set_cookie('goods_ids',goods_ids)
+    response.set_cookie('goods_ids',goods_ids)
 
-    return render(request, 'shopping_goods/detail.html',context)
+    return response
 
-def cart(request):
-    context = {
-        'guest_cart':1
-    }
-    return render(request,'user_cart/cart.html',context)
-# Create your views here.

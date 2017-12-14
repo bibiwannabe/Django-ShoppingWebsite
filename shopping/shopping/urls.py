@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^user/',include('shopping_user.urls')),
     url(r'^tinymce/',include('tinymce.urls')),
     url(r'^',include('shopping_goods.urls')),
+    url(r'^cart/',include('user_cart.urls')),
 ]
