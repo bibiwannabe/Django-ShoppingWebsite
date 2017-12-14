@@ -47,3 +47,13 @@ def edit(request,cart_id,count):
     except Exception as e:
         data={'ok': count1}
     return JsonResponse(data)
+
+def delete(request,cart_id):
+    try:
+        cart=CartInfo.objects.get(pk=int(cart_id))
+        cart.delete()
+        data={'ok':1}
+    except Exception as e:
+        data={'ok': 0}
+    return  JsonResponse(data)
+

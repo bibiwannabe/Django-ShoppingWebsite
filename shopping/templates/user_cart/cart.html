@@ -109,9 +109,9 @@
      else if(count>=100){
        $(this).val(99);
      }
-     goodid = $(this).parents('.cart_list_td').attr('id');
-     count = $(this).val();
-     url = '/cart/edit'+goodid+'_'+count+'/';
+     cart_id = $(this).parents('.cart_list_td').attr('id');
+	 count = $(this).val();
+     url = '/cart/edit'+cart_id+'_'+count+'/';
      $.get(url,function(data){
      });
      calculateTotal();
