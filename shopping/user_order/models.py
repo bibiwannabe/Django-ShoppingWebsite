@@ -5,6 +5,7 @@ class OrderInfo(models.Model):
     odate = models.DateTimeField(auto_now=True)
     oispay = models.BooleanField(default=False)
     ototal = models.DecimalField(max_digits=6, decimal_places=2)
+    oadd = models.CharField(max_length=100,default='')
 
 
 class OrderDetailInfo(models.Model):
