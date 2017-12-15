@@ -96,13 +96,22 @@
 	<h3 class="common_title">商品列表</h3>
 	
 	<div class="common_list_con clearfix">
-		{%for g in goods%}
 		<ul class="goods_list_th clearfix">
 			<li class="col01">商品名称</li>
 			<li class="col02">商品单位</li>
 			<li class="col03">商品价格</li>
 			<li class="col04">数量</li>
 			<li class="col05">小计</li>		
+		</ul>
+		{%for order in orderlist %}
+		<ul class="goods_list_td clearfix" id="{{order.id}}">
+			<li class="col01">{{order.id}}</li>
+			<li class="col02"><img src="/static/{{order.goods.gpic}}"></li>
+			<li class="col03">{{order.goods.gtitle}}</li>
+			<li class="col04">{{order.goods.gunit}}</li>
+			<li class="col05">{{order.goods.gprice}}</li>
+			<li class="col06">{{order.count}}</li>
+			<li class="col07">{{order.goods.gprice}}</li>
 		</ul>
 		{%endfor%}
 	</div>
