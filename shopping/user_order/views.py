@@ -94,3 +94,11 @@ def order_handle(request):
             transaction.savepoint_rollback(tran_id)
         # 返回json供前台提示成功
     return JsonResponse({'status': 1})
+
+@transaction.atomic()
+def pay(request,oid):
+    order=OrderInfo.objects.get(oid=oid)
+    order.oIspay=True
+    order.save()
+    context={'order':order}
+    return render(request,'df_order/pay.html',context)

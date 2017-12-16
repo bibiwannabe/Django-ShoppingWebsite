@@ -1,10 +1,12 @@
 # coding='utf-8'
+from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect
 from . import user_decorator
 from .models import *
 from hashlib import sha1
 from . import models
+from user_order.models import OrderInfo
 
 
 
@@ -105,3 +107,26 @@ def site(request):
              'user':user,
               }
     return render(request,'shopping_user/user_center_site.html',context)
+
+@user_decorator.login
+def user_center_order(request, pageid):
+    """
+    此页面用户展示用户提交的订单，由购物车页面下单后转调过来，也可以从个人信息页面查看
+    根据用户订单是否支付、下单顺序进行排序
+    """
+
+    uid = request.session.get('user_id')
+    # 订单信息，根据是否支付、下单顺序进行排序
+    orderinfos = OrderInfo.objects.filter(
+        user_id=uid).order_by('oIsPay', '-oid')
+
+    # 分页
+    paginator = Paginator(orderinfos, 2)
+    orderlist = paginator.page(int(pageid))
+    plist = paginator.page_range
+
+    # 构造上下文
+    context = {'page_name': 1, 'title': '全部订单', 'pageid': int(pageid),
+               'order': 1, 'orderlist': orderlist, 'plist': plist}
+
+    return render(request, 'shopping_user/user_center_order.html', context)

@@ -17,9 +17,9 @@
    totalPay = priceSum + 10;
    $('#total_pay').text(totalPay+'元');
 
-   /* 下订单触发click事件，用来校验订单是否下成功，根据AJAX返回值展示不同页面*/
+  /* 下订单触发click事件，用来校验订单是否下成功，根据AJAX返回值展示不同页面*/
    $('#order_btn').click(function(){
-     orderid = []
+     orderid = [];
      $('.goods_list_td').each(function(){
        orderid.push($(this).attr('id'));
      });
@@ -65,6 +65,7 @@
  })
 </script>
 
+
 {% endblock head %}
 
 {% block body  %}
@@ -73,7 +74,7 @@
 	<div class="common_list_con clearfix">
 		<dl>
 			<dt>寄送到：</dt>
-			<dd><input type="radio" name="" checked="">{{user.useradd}} （{{user.userreseive}} 收） {{user.userphone}}</dd>
+			<dd><input type="radio" name="" checked="" id="oaddress">{{user.useradd}} （{{user.userreseive}} 收） {{user.userphone}}</dd>
 		</dl>
 		<a href="/user/site" class="edit_site">编辑收货地址</a>
 
@@ -127,7 +128,16 @@
 	</div>
 
 	<div class="order_submit clearfix">
+		<form method="post" action="/order/order_handle/">
+			{%csrf_token%}
 		<a href="javascript:;" id="order_btn">提交订单</a>
+		</form>
 	</div>	
-{%endblock body%}
+	<div class="popup_con">
+  <div class="popup">
+    <p></p>
+  </div>
 
+  <div class="mask"></div>
+</div>
+{% endblock body %}
